@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reddit_clone/core/common/sign_in_button.dart';
 import 'package:reddit_clone/core/constants/constants.dart';
-import 'package:reddit_clone/theme/palette.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -31,7 +30,7 @@ class LoginScreen extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            Text(
+            const Text(
               "Dive into anything",
               style: TextStyle(
                   fontSize: 24,

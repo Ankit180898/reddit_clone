@@ -9,6 +9,10 @@ class Palette {
   static var redColor = Colors.red.shade500;
   static var blueColor = Colors.blue.shade300;
 
+  // Text Colors
+  static const lightTextColor = Colors.black; // Text color for light theme
+  static const darkTextColor = Colors.white; // Text color for dark theme
+
   // Themes
   static var darkModeAppTheme = ThemeData.dark().copyWith(
     scaffoldBackgroundColor: blackColor,
@@ -23,6 +27,12 @@ class Palette {
       backgroundColor: drawerColor,
     ),
     primaryColor: redColor,
+    textTheme: const TextTheme(
+        bodyLarge: TextStyle(color: Palette.whiteColor),
+        bodyMedium: TextStyle(color: Palette.whiteColor),
+        bodySmall: TextStyle(color: Palette.whiteColor)
+        
+        ),
   );
 
   static var lightModeAppTheme = ThemeData.light().copyWith(
@@ -39,6 +49,9 @@ class Palette {
       backgroundColor: whiteColor,
     ),
     primaryColor: redColor,
+    textTheme: const TextTheme(
+      bodyLarge: TextStyle(color: lightTextColor),
+      bodyMedium: TextStyle(color: lightTextColor),
+    ),
   );
 }
-
