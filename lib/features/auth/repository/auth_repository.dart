@@ -31,6 +31,8 @@ class AuthRepository {
   CollectionReference get _users =>
       _firebaseFirestore.collection(FirebaseConstants.usersCollection);
 
+  Stream<User?> get authStateChange => _auth.authStateChanges();
+
   FutureEither<UserModel> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
@@ -39,19 +41,21 @@ class AuthRepository {
           accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
       UserCredential userCredential =
           await _auth.signInWithCredential(credential);
-      late UserModel userModel;
+      UserModel userModel;
       // if the user is new then only it creates the user.
       if (userCredential.additionalUserInfo!.isNewUser) {
         userModel = UserModel(
             name: userCredential.user!.displayName ?? "No Name",
-            profilePicture:
+            profilePic:
                 userCredential.user!.photoURL ?? Constants.avatarDefault,
             banner: Constants.bannerDefault,
             uid: userCredential.user!.uid,
             isAuthenticated: true,
             karma: 0,
-            award: []);
+            awards: []);
         await _users.doc(userCredential.user?.uid).set(userModel.toMap());
+      } else {
+        userModel = await getUserData(userCredential.user!.uid).first;
       }
       return right(userModel);
     } on FirebaseException catch (e) {
@@ -59,5 +63,10 @@ class AuthRepository {
     } catch (e) {
       return left(Failure(e.toString()));
     }
+  }
+
+  Stream<UserModel> getUserData(String uid) {
+    return _users.doc(uid).snapshots().map(
+        (event) => UserModel.fromMap(event.data() as Map<String, dynamic>));
   }
 }
