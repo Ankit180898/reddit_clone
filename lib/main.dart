@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reddit_clone/core/common/error_text.dart';
 import 'package:reddit_clone/core/common/loader.dart';
 import 'package:reddit_clone/features/auth/controller/auth_controller.dart';
-import 'package:reddit_clone/features/auth/screens/login_screen.dart';
 import 'package:reddit_clone/firebase_options.dart';
 import 'package:reddit_clone/models/user_model.dart';
 import 'package:reddit_clone/router.dart';
@@ -37,9 +36,7 @@ class _MyAppState extends ConsumerState<MyApp> {
         .getUserData(data.uid)
         .first;
     ref.read(userProvider.notifier).update((state) => userModel);
-    setState(() {
-      
-    });
+    setState(() {});
   }
 
   @override
@@ -51,15 +48,16 @@ class _MyAppState extends ConsumerState<MyApp> {
               theme: Palette.darkModeAppTheme,
               routerDelegate: RoutemasterDelegate(routesBuilder: (context) {
                 if (data != null) {
-                  return loggedInRoute;
-                } else {
-                  return loggedOutRoute;
+                  getData(ref, data);
+                  if (userModel != null) {
+                    return loggedInRoute;
+                  }
                 }
+                return loggedOutRoute;
               }),
               routeInformationParser: const RoutemasterParser(),
             ),
         error: (error, StackTrace) => ErrorText(error: error.toString()),
         loading: () => const Loader());
-    ;
   }
 }
