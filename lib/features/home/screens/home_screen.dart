@@ -16,10 +16,14 @@ class HomeScreen extends ConsumerWidget {
         centerTitle: false,
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
-          CircleAvatar(
-            backgroundImage: NetworkImage(user!.profilePic),
-            onBackgroundImageError: (exception, stackTrace) =>
-                const AssetImage("assets/images/logo.png"), // Fallback image
+          Align(
+            alignment: Alignment.topLeft,
+            child: CircleAvatar(
+              radius: 24,
+              backgroundImage: NetworkImage(user!.profilePic),
+              onBackgroundImageError: (exception, stackTrace) =>
+                  const AssetImage("assets/images/logo.png"), // Fallback image
+            ),
           )
         ],
       ),

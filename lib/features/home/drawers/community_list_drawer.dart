@@ -5,6 +5,7 @@ import 'package:reddit_clone/core/common/loader.dart';
 import 'package:reddit_clone/features/auth/controller/auth_controller.dart';
 import 'package:reddit_clone/features/community/controller/community_controller.dart';
 import 'package:reddit_clone/features/community/repository/community_repository.dart';
+import 'package:reddit_clone/models/community_model.dart';
 import 'package:routemaster/routemaster.dart';
 
 class CommunityListDrawer extends ConsumerStatefulWidget {
@@ -23,6 +24,10 @@ class _CommunityListDrawerState extends ConsumerState<CommunityListDrawer> {
   void getUserCommunities() {
     // Implement your logic to get user communities here
     ref.watch(communityControllerProvider.notifier).getUserCommunities();
+  }
+
+  void navigateToCommunity(BuildContext context, Community community) {
+    Routemaster.of(context).push('/r/${community.name}');
   }
 
   @override
@@ -49,8 +54,8 @@ class _CommunityListDrawerState extends ConsumerState<CommunityListDrawer> {
                           leading: CircleAvatar(
                             backgroundImage: NetworkImage(community.avatar),
                           ),
-                          title: Text('r/${community.name}'),
-                          onTap: () => null,
+                          title: Text('r/${community.name.toString()}'),
+                          onTap: () => navigateToCommunity(context, community),
                         );
                       },
                     ),
