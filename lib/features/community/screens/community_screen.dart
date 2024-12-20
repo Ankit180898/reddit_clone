@@ -10,7 +10,7 @@ import 'package:routemaster/routemaster.dart';
 class CommunityScreen extends ConsumerWidget {
   final String name;
 
-  CommunityScreen({
+  const CommunityScreen({
     super.key,
     required this.name,
   });
@@ -64,7 +64,7 @@ class CommunityScreen extends ConsumerWidget {
                                 children: [
                                   Text(
                                     'r/${community.name}',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -72,12 +72,12 @@ class CommunityScreen extends ConsumerWidget {
                                     padding: const EdgeInsets.only(top: 5),
                                     child: Text(
                                       '${community.members.length} members',
-                                      style: TextStyle(fontSize: 14),
+                                      style: const TextStyle(fontSize: 14),
                                     ),
                                   )
                                 ],
                               ),
-                              Spacer(),
+                              const Spacer(),
                               community.mods.contains(user.uid)
                                   ? OutlinedButton(
                                       style: ElevatedButton.styleFrom(

@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -62,12 +61,12 @@ class _EditCommunityScreenState extends ConsumerState<EditCommunityScreen> {
               centerTitle: false,
               actions: [
                 TextButton(
-                    onPressed: () => save(community), child: Text("Save"))
+                    onPressed: () => save(community), child: const Text("Save"))
               ],
-              title: Text("Edit community"),
+              title: const Text("Edit community"),
             ),
             body: isLoading
-                ? Loader()
+                ? const Loader()
                 : Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
@@ -85,7 +84,7 @@ class _EditCommunityScreenState extends ConsumerState<EditCommunityScreen> {
                                       .bodySmall!.color!,
                                   dashPattern: const [10, 4],
                                   strokeCap: StrokeCap.round,
-                                  child: Container(
+                                  child: SizedBox(
                                     width: double.infinity,
                                     height: 150,
                                     child: img != null
